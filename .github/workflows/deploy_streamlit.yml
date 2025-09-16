@@ -80,8 +80,8 @@ jobs:
               cd $APP_DIR
               pwd
               snow connection test \
-                --account $account \
-                --user $SNOWFLAKE_USER \
+                --account TCCWZMV-JM46581 \
+                --user ADMIN \
                 --password $SNOWFLAKE_PASSWORD \
                 --role $role \
                 --warehouse $warehouse \
