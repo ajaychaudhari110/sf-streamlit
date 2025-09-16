@@ -69,7 +69,7 @@ jobs:
             accounts=$(yq '.deploy_to | length' $CONFIG_FILE)
 
             for i in $(seq 0 $((accounts-1))); do
-              account=$(yq ".deploy_to[$i].account" $CONFIG_FILE)
+              account=$(yq -r ".deploy_to[$i].account" $CONFIG_FILE)
               role=$(yq ".deploy_to[$i].role" $CONFIG_FILE)
               warehouse=$(yq ".deploy_to[$i].warehouse" $CONFIG_FILE)
               database=$(yq ".deploy_to[$i].database" $CONFIG_FILE)
