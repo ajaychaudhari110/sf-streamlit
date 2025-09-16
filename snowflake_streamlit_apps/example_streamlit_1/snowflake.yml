@@ -1,0 +1,10 @@
+definition_version: 2
+entities:
+  example_streamlit_1:
+    type: streamlit
+    identifier: example_streamlit_1
+    stage: example_streamlit_1_stage
+    query_warehouse: COMPUTE_WH
+    main_file: example_streamlit_1.py
+    artifacts:
+      - environment.yml
