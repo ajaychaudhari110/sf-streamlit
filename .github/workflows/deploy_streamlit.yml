@@ -34,7 +34,7 @@ jobs:
         run: |
           # List changed files
           changed=$(git diff-tree --no-commit-id --name-only -r HEAD | grep '^snowflake_streamlit_apps/' | cut -d'/' -f2 | sort -u)
-
+          echo "$changed"
           if [ -z "$changed" ]; then
             echo "No apps changed. Exiting."
             exit 0
