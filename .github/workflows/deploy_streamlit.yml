@@ -54,6 +54,9 @@ jobs:
 
       # Deployed changed/new streamlit apps
       - name: Deploy Changed Apps
+        env:
+          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
         if: steps.detect.outputs.apps != ''
         run: |
           for app in ${{ steps.detect.outputs.apps }}; do
@@ -66,8 +69,23 @@ jobs:
             accounts=$(yq '.deploy_to | length' $CONFIG_FILE)
 
             for i in $(seq 0 $((accounts-1))); do
-              acct_key=$(yq ".deploy_to[$i].account" $CONFIG_FILE)
+              account=$(yq ".deploy_to[$i].account" $CONFIG_FILE)
+              role=$(yq ".deploy_to[$i].role" $CONFIG_FILE)
+              warehouse=$(yq ".deploy_to[$i].warehouse" $CONFIG_FILE)
+              database=$(yq ".deploy_to[$i].database" $CONFIG_FILE)
+              schema=$(yq ".deploy_to[$i].schema" $CONFIG_FILE)
 
-              echo "Deploying to $acct_key..."
+              echo "Deploying to $account..."
+
+              cd $APP_DIR
+              snow streamlit deploy $APP_NAME --replace --prune \
+                --account $account \
+                --role $role \
+                --warehouse $warehouse \
+                --database $database \
+                --schema $schema \
+                --temporary-connection
+                
+              cd $GITHUB_WORKSPACE
             done
           done
