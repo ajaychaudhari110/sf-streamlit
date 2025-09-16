@@ -8,3 +8,4 @@ entities:
     main_file: example_streamlit_1.py
     artifacts:
       - environment.yml
+      
