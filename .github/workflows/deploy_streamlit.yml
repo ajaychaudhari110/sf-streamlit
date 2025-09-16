@@ -79,7 +79,7 @@ jobs:
 
               cd $APP_DIR
               pwd
-              snow streamlit deploy --replace --prune \
+              snow connection test \
                 --account $account \
                 --role $role \
                 --warehouse $warehouse \
