@@ -79,7 +79,7 @@ jobs:
 
               cd $APP_DIR
               pwd
-              snow streamlit deploy $APP_NAME --replace --prune \
+              snow streamlit deploy --replace --prune \
                 --account $account \
                 --role $role \
                 --warehouse $warehouse \
