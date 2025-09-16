@@ -62,3 +62,4 @@ jobs:
             APP_NAME=$(yq '.app_name' $CONFIG_FILE)
 
             echo "Deploying $APP_NAME from $APP_DIR"
+          done
