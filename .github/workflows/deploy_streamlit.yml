@@ -38,7 +38,7 @@ jobs:
         id: detect
         run: |
           # Compare files changed in this push
-          changed=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^apps/' | cut -d'/' -f2 | sort -u || true)
+          changed=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^snowflake_streamlit_apps/' | cut -d'/' -f2 | sort -u || true)
 
           if [ -z "$changed" ]; then
             echo "No apps changed."
