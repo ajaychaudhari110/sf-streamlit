@@ -78,6 +78,7 @@ jobs:
               echo "Deploying to $account..."
 
               cd $APP_DIR
+              pwd
               snow streamlit deploy $APP_NAME --replace --prune \
                 --account $account \
                 --role $role \
@@ -85,7 +86,7 @@ jobs:
                 --database $database \
                 --schema $schema \
                 --temporary-connection
-                
+
               cd $GITHUB_WORKSPACE
             done
           done
