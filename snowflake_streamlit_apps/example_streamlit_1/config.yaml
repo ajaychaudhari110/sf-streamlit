@@ -1,0 +1,7 @@
+app_name: example_streamlit_1
+deploy_to:
+  - account: TCCWZMV-JM46581
+    role: ACCOUNTADMIN
+    warehouse: COMPUTE_WH
+    database: DQ_TUTORIAL_DB
+    schema: SCH
