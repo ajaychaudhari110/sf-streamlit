@@ -19,7 +19,7 @@ jobs:
       - name: print current directory
         run: |
           ls $GITHUB_WORKSPACE/
-          
+
       # Snowflake CLI installation
       - uses: snowflakedb/snowflake-cli-action@v1.5
 
@@ -38,8 +38,12 @@ jobs:
         id: detect
         run: |
           # List changed files
-          changed=$(git diff-tree --no-commit-id --name-only -r HEAD | grep '^snowflake_streamlit_apps/' | cut -d'/' -f2 | sort -u)
+          git fetch origin ${{ github.base_ref }}
+          # changed=$(git diff-tree --no-commit-id --name-only -r HEAD | grep '^snowflake_streamlit_apps/' | cut -d'/' -f2 | sort -u)
+          changed=$(git diff --name-only ${{ github.sha }} ${{ github.event.before }} | grep '^apps/' | cut -d'/' -f2 | sort -u)
+
           echo "$changed"
+          
           if [ -z "$changed" ]; then
             echo "No apps changed. Exiting."
             exit 0
