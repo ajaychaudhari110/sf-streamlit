@@ -5,3 +5,4 @@ deploy_to:
     warehouse: COMPUTE_WH
     database: DQ_TUTORIAL_DB
     schema: SCH
+    

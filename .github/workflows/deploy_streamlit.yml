@@ -22,3 +22,17 @@ jobs:
       - name: Execute Snowflake CLI command
         run: |
           snow --version
+
+      - name: Find Changed Apps
+        id: detect
+        run: |
+          # List changed files
+          git fetch origin ${{ github.base_ref }}
+          changed=$(git diff --name-only ${{ github.sha }} ${{ github.event.before }} | grep '^snowflake_streamlit_apps/' | cut -d'/' -f2 | sort -u)
+
+          if [ -z "$changed" ]; then
+            echo "No apps changed. Exiting."
+            exit 0
+          fi
+
+          echo "apps=$changed" >> $GITHUB_OUTPUT
