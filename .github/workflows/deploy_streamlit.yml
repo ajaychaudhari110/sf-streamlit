@@ -79,6 +79,7 @@ jobs:
 
               cd $APP_DIR
               pwd
+              echo "Account from config: $account"
               snow connection test \
                 --account $account \
                 --user ADMIN \
