@@ -33,23 +33,20 @@ jobs:
         run: |
           pip install yq
 
-      # Find Streamlit to be deployed
+      # Find Streamlit Apps
       - name: Find Changed Apps
         id: detect
         run: |
-          # List changed files
-          git fetch origin ${{ github.base_ref }}
-          # changed=$(git diff-tree --no-commit-id --name-only -r HEAD | grep '^snowflake_streamlit_apps/' | cut -d'/' -f2 | sort -u)
-          changed=$(git diff --name-only ${{ github.sha }} ${{ github.event.before }} | grep '^apps/' | cut -d'/' -f2 | sort -u)
+          # Compare files changed in this push
+          changed=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^apps/' | cut -d'/' -f2 | sort -u || true)
 
-          echo "$changed"
-          
           if [ -z "$changed" ]; then
-            echo "No apps changed. Exiting."
-            exit 0
+            echo "No apps changed."
+            echo "apps=" >> $GITHUB_OUTPUT
+          else
+            echo "Changed apps: $changed"
+            echo "apps=$changed" >> $GITHUB_OUTPUT
           fi
-
-          echo "apps=$changed" >> $GITHUB_OUTPUT
 
       # Deployed changed/new streamlit apps
       - name: Deploy Changed Apps
