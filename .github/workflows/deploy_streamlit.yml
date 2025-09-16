@@ -80,10 +80,8 @@ jobs:
               cd $APP_DIR
               pwd
               echo "Account from config: $account"
-              snow connection test \
+              snow streamlit deploy --replace --prune \
                 --account $account \
-                --user ADMIN \
-                --password $SNOWFLAKE_PASSWORD \
                 --role $role \
                 --warehouse $warehouse \
                 --database $database \
