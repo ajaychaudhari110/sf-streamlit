@@ -15,6 +15,11 @@ jobs:
         with:
           persist-credentials: false
 
+      # Check current folder path
+      - name: print current directory
+        run: |
+          ls $GITHUB_WORKSPACE/
+          
       # Snowflake CLI installation
       - uses: snowflakedb/snowflake-cli-action@v1.5
 
